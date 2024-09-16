@@ -17,7 +17,7 @@ func NewWelcomeController() *WelcomeController {
 // @Router / [get]
 func (ctr *WelcomeController) Index(c echo.Context) error {
 
-	return c.JSON(http.StatusOK, echo.Map{"app": "welcome to api eticket"})
+	return c.JSON(http.StatusOK, echo.Map{"app": "welcome to base api"})
 }
 
 // @Tags welcome
