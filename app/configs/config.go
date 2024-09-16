@@ -9,6 +9,7 @@ import (
 )
 
 type Config struct {
+	APPEnv            string
 	APPName           string
 	APPPort           string
 	APPLogLevel       string
@@ -50,6 +51,7 @@ func InitConfig() {
 	notifSMTPPort, _ := strconv.Atoi(os.Getenv("NOTIF_SMTP_PORT"))
 	// Initialize configuration
 	AppConfig = &Config{
+		APPEnv:            os.Getenv("APP_ENV"),
 		APPName:           os.Getenv("APP_NAME"),
 		APPPort:           os.Getenv("APP_PORT"),
 		APPLogLevel:       os.Getenv("APP_LOG_LEVEL"),

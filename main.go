@@ -67,6 +67,11 @@ func runEchoServer() {
 		e.Use(middleware.Recover())
 	}
 
+	if configs.AppConfig.APPEnv == "production" {
+		e.Debug = false
+		e.HideBanner = true // Hide startup banner for a cleaner log
+	}
+
 	e.Use(appMiddleware.TrimMiddleware)
 	e.Validator = utils.NewCustomValidator()
 
@@ -81,12 +86,12 @@ func runEchoServer() {
 	srv := handler.NewDefaultServer(graph.NewExecutableSchema(graph.Config{Resolvers: &graph.Resolver{}}))
 
 	// Playground Handler (for testing in-browser)
-	e.GET("/playground", echo.WrapHandler(playground.Handler("GraphQL playground", "/graphql")))
+	if configs.AppConfig.APPEnv != "production" {
+		e.GET("/playground", echo.WrapHandler(playground.Handler("GraphQL playground", "/graphql")))
+	}
+
 	// GraphQL Query Handler
 	e.POST("/graphql", echo.WrapHandler(srv))
-
-	// Start server
-	e.Logger.Fatal(e.Start(":3600"))
 
 	printRoutes(e)
 
