@@ -1,0 +1,13 @@
+tmp/
+docs/
+
+
+.DS_Store
+
+
+.env
+
+__debug*
+
+uploads/*
+!uploads/index.html
